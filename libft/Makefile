@@ -65,6 +65,7 @@ SRC = ft_memset.c \
 	  ft_putendl_fd.c \
 	  ft_putnbr_fd.c \
 	  ft_wordcount.c \
+		get_next_line.c
 
 OBJ = ft_memset.o \
 	  ft_bzero.o \
@@ -119,6 +120,7 @@ OBJ = ft_memset.o \
 	  ft_putendl_fd.o \
 	  ft_putnbr_fd.o \
 	  ft_wordcount.o \
+		get_next_line.o
 
 all: $(NAME)
 
@@ -131,7 +133,7 @@ $(NAME):
 
 clean:
 		@rm -f *.o
-		@echo "\033[32m[CLEANING OBJECTS]\033[0m"
+
 fclean: clean
 		@rm -f $(NAME)
 		@echo "\033[36m[CLEANING]\033[0m"
