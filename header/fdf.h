@@ -18,11 +18,11 @@ typedef struct		s_fdf
 	char			*name;
 	void			*mlx;
 	void			*win;
-	int				**map;
+	char			**map;
 	int				tabxy[2];
 	int				lines;
 	int				check;
-	int				chars;
+	int				values;
 	int				z;
 	int				dx;
 	int				dy;
@@ -50,8 +50,6 @@ void	ft_fdf(t_fdf *parse);
 int		ft_parser(t_fdf *parse);
 int		ft_alloc_tab(t_fdf *parse);
 int		ft_helper_tab(t_fdf *parse, char *line);
-int		ft_checker(char *str, int y, int save);
-int		ft_val_return(int y, int nb, int save);
 int		get_next_line(const int fd, char **line);
 
 #endif

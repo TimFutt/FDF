@@ -32,7 +32,7 @@ void	ft_check_draw(t_fdf *draw)
 		draw->z = -5;
 		draw->dx = WIDTH * 0.4;
 		draw->dy = 20;
-		draw->sx = (WIDTH * 0.7) / (draw->chars - 1);
+		draw->sx = (WIDTH * 0.7) / (draw->values - 1);
 		draw->sy = (HEIGHT * 0.5) / (draw->lines - 1);
 		draw->color = 0x00FFFFFF;
 	}
@@ -44,11 +44,11 @@ void	ft_put_lines(t_fdf *draw)
 
 	draw->tabxy[0] = draw->dx + (draw->x0 - draw->y0);
 	draw->tabxy[1] = draw->dy + draw->map[draw->y0 / draw->sy][draw->x0 / draw->sx] * draw->z + draw->x0 + draw->y0;
-	if (draw->x0 / draw->sx < draw->chars - 1 && draw->y0 / draw->sy < draw->lines)
+	if (draw->x0 / draw->sx < draw->values - 1 && draw->y0 / draw->sy < draw->lines)
   {
 		ft_draw_line(draw , draw->dx + ((draw->x0 + draw->sx) - draw->y0), draw->dy + draw->map[draw->y0 / draw->sy][draw->x0 / draw->sx + 1] * draw->z + draw->x0 + draw->sx + draw->y0);
   }
-	if (draw->y0 / draw->sy < draw->lines - 1 && draw->x0 / draw->sx < draw->chars)
+	if (draw->y0 / draw->sy < draw->lines - 1 && draw->x0 / draw->sx < draw->values)
   {
 		ft_draw_line(draw, draw->dx + (draw->x0 - (draw->y0 + draw->sy)), draw->dy + draw->map[draw->y0 / draw->sy + 1][draw->x0 / draw->sx] * draw->z + draw->x0 + draw->y0 + draw->sy);
   }
@@ -59,9 +59,9 @@ void	ft_draw(t_fdf *draw)
 	draw->x0 = 0;
 	draw->y0 = 0;
 	ft_check_draw(draw);
-	while (draw->x0 / draw->sx < draw->chars || draw->y0 / draw->sy < draw->lines - 1)
+	while (draw->x0 / draw->sx < draw->values || draw->y0 / draw->sy < draw->lines - 1)
 	{
-		if (draw->x0 / draw->sx == draw->chars)
+		if (draw->x0 / draw->sx == draw->values)
 		{
 			draw->x0 = 0;
 			draw->y0 += draw->sy;

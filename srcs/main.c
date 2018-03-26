@@ -1,11 +1,12 @@
 #include "../header/fdf.h"
+
 int     main(int ac, char **av)
 {
     t_fdf     main;
     if (ac == 2)
     {
         main.name = av[1];
-        main.fd = open(av[1], O_RDONLY);
+        main.fd = open(main.name, O_RDONLY);
         if (ft_parser(&main) == FAILURE)
         {
           ft_putendl("Error");
