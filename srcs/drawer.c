@@ -1,4 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   drawer.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tifuret <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/11 14:40:39 by tifuret           #+#    #+#             */
+/*   Updated: 2018/04/11 15:21:56 by tifuret          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/fdf.h"
+
+/*
+** Fonction qui trace une ligne
+** Suit la formule de l'algo de Brasenham
+*/
 
 void	ft_draw_line(t_fdf *draw, int x, int y)
 {
@@ -25,6 +42,11 @@ void	ft_draw_line(t_fdf *draw, int x, int y)
 	}
 }
 
+/*
+** Check si on peut draw
+** Ex = Si la map sort trop de la fenetre
+*/
+
 void	ft_check_draw(t_fdf *draw)
 {
 	if (draw->check == 0)
@@ -39,34 +61,50 @@ void	ft_check_draw(t_fdf *draw)
 	draw->check++;
 }
 
+/*
+** Affichage des lignes en quadrillage
+*/
+
 void	ft_put_lines(t_fdf *draw)
 {
-
-	draw->tabxy[0] = draw->dx + (draw->x0 - draw->y0);
-	draw->tabxy[1] = draw->dy + draw->map[draw->y0 / draw->sy][draw->x0 / draw->sx] * draw->z + draw->x0 + draw->y0;
-	if (draw->x0 / draw->sx < draw->values - 1 && draw->y0 / draw->sy < draw->lines)
-  {
-		ft_draw_line(draw , draw->dx + ((draw->x0 + draw->sx) - draw->y0), draw->dy + draw->map[draw->y0 / draw->sy][draw->x0 / draw->sx + 1] * draw->z + draw->x0 + draw->sx + draw->y0);
-  }
-	if (draw->y0 / draw->sy < draw->lines - 1 && draw->x0 / draw->sx < draw->values)
-  {
-		ft_draw_line(draw, draw->dx + (draw->x0 - (draw->y0 + draw->sy)), draw->dy + draw->map[draw->y0 / draw->sy + 1][draw->x0 / draw->sx] * draw->z + draw->x0 + draw->y0 + draw->sy);
-  }
+	draw->tabxy[0] = draw->dx + (draw->x - draw->y);
+	draw->tabxy[1] = draw->dy + draw->map[draw->y / draw->sy][draw->x
+		/ draw->sx] * draw->z + draw->x + draw->y;
+	if (draw->x / draw->sx < draw->values - 1 && draw->y
+			/ draw->sy < draw->lines)
+	{
+		ft_draw_line(draw, draw->dx + ((draw->x + draw->sx) - draw->y), draw->dy
+				+ draw->map[draw->y / draw->sy][draw->x / draw->sx + 1]
+				* draw->z + draw->x + draw->sx + draw->y);
+	}
+	if (draw->y / draw->sy < draw->lines - 1 && draw->x
+			/ draw->sx < draw->values)
+	{
+		ft_draw_line(draw, draw->dx + (draw->x - (draw->y + draw->sy)), draw->dy
+				+ draw->map[draw->y / draw->sy + 1][draw->x / draw->sx]
+				* draw->z + draw->x + draw->y + draw->sy);
+	}
 }
+
+/*
+** Fonction mere
+** Initialisation des fonctions de draw
+*/
 
 void	ft_draw(t_fdf *draw)
 {
-	draw->x0 = 0;
-	draw->y0 = 0;
+	draw->x = 0;
+	draw->y = 0;
 	ft_check_draw(draw);
-	while (draw->x0 / draw->sx < draw->values || draw->y0 / draw->sy < draw->lines - 1)
+	while (draw->x / draw->sx < draw->values || draw->y / draw->sy
+			< draw->lines - 1)
 	{
-		if (draw->x0 / draw->sx == draw->values)
+		if (draw->x / draw->sx == draw->values)
 		{
-			draw->x0 = 0;
-			draw->y0 += draw->sy;
+			draw->x = 0;
+			draw->y += draw->sy;
 		}
 		ft_put_lines(draw);
-		draw->x0 += draw->sx;
+		draw->x += draw->sx;
 	}
 }
